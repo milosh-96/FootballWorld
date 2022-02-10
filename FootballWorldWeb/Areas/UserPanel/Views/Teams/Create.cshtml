@@ -1,0 +1,25 @@
+﻿@model TeamFormViewModel
+<div class="row">
+    <div class="col">
+        <form enctype="multipart/form-data" asp-area="UserPanel" asp-controller="Teams" asp-action="Create" method="post">
+            <div class="form-group">
+                <label class="label" asp-for="Name">
+                    Name
+                </label>
+                <input type="text" asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="label" asp-for="LogoUploadFile">Team Logo</label>
+                <input class="form-control" type="file" asp-for="LogoUploadFile" />
+            </div>
+            <div class="form-group">
+                <label class="label" asp-for="SelectedTeamType">Team Type</label>
+                <select asp-items="@Model.TeamTypeSelectList" asp-for="SelectedTeamType">
+                </select>
+            </div>
+            <button class="btn btn-primary">
+                Save
+            </button>
+        </form>
+    </div>
+</div>

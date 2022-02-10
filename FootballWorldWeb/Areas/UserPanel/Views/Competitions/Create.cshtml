@@ -1,0 +1,35 @@
+﻿@model CompetitionFormViewModel
+<div class="row">
+    <div class="col">
+        <form enctype="multipart/form-data"
+              asp-area="UserPanel"
+              asp-controller="Competitions"
+              asp-action="Create" method="post">
+            <div class="form-group">
+                <label class="label" asp-for="Name">
+                    Name
+                </label>
+                <input type="text" asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ReuploadLogo">
+                    Upload Logo
+                    <input type="checkbox" asp-for="ReuploadLogo" />
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="label" asp-for="LogoUploadFile">Competition Logo</label>
+                <input class="form-control" type="file" asp-for="LogoUploadFile" />
+            </div>
+            <div class="form-group">
+                <label class="label">Parent</label>
+                <select class="form-control" asp-for="SelectedCompetitionId" asp-items="@Model.ParentSelectList">
+                </select>
+            </div>
+            <button class="btn btn-primary">
+                Create
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+        </form>
+    </div>
+</div>

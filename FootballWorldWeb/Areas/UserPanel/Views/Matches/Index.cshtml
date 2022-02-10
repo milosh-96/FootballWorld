@@ -1,0 +1,32 @@
+﻿@model MatchesIndexViewModel
+
+<div class="row">
+    <div class="col">
+        <div class="text-left">
+            <a asp-action="Create" asp-route-groupId="@Model.GroupId" class="btn btn-xs btn-outline-secondary">Add New</a>
+        </div>
+        <div class="mt-4">
+            <h3>@ViewData["Title"]</h3>
+        </div>
+
+        <ul class="list-group">
+            @foreach (var match in Model.Matches)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-8">
+                            @if(match.Finished) { <strong>F: </strong>}
+                            @String.Format("{0}-{1}",
+                           match.Results.Where(x=>x.Type==MatchResultType.HomeTeam).FirstOrDefault().Team.Name,
+                           match.Results.Where(x=>x.Type==MatchResultType.AwayTeam).FirstOrDefault().Team.Name
+                           )
+                        </div>
+                        <div class="col">
+                            <a asp-action="Edit" asp-route-id="@match.Id" asp-route-groupId="@match.GroupId">Edit</a>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

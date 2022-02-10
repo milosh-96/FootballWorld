@@ -1,0 +1,28 @@
+﻿@model ImportPreviewViewModel<FootballWorld.Data.Team>
+
+    <div>
+        <div class="row">
+            <div class="col">
+                <h2> @ViewData["Title"]</h2>
+
+                <div class="row">
+                    <div class="col">
+                        <p>These teams are imported. If you don't see your club than it already exists in the database.</p>
+                        <table class="table">
+                            @foreach (var team in Model.Items)
+                            {
+                                <tr>
+                                    <td>@team.Name</td>
+                                    <td>@team.TeamLogo</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+           
+        </div>
+    </div>

@@ -1,0 +1,26 @@
+﻿@model ImportFormViewModel
+<div class="row">
+    <div class="col">
+        <h2>@ViewData["Title"]</h2>
+        <div class="alert alert-info">
+           If you have prepared logo images specify the image name for each team in the file so the sys admin can upload them later or you can manually upload images via the edit form for each team.
+        </div>
+        <form enctype="multipart/form-data"
+              asp-area="UserPanel"
+              asp-controller="Teams"
+              asp-action="ImportPreview"
+              method="post">
+            <div class="form-group">
+                <label class="label" asp-for="UploadedFile">
+                    Select File
+                </label>
+                <input type="file" asp-for="UploadedFile" class="form-control" />
+            </div>
+
+            <button class="btn btn-primary">
+                Import
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+        </form>
+    </div>
+</div>

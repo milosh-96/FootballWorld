@@ -1,0 +1,66 @@
+﻿@model GroupManageTeamsFormViewModel
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <h2>@ViewData["Title"]</h2>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col">
+                        <ul class="list-group">
+                            @if (Model.CurrentTeams.Count == 0)
+                            {
+                                <li class="list-group-item">
+                                    No teams
+                                </li>
+                            }
+                            else
+                            {
+                                foreach (var team in Model.CurrentTeams)
+                                {
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col">
+                                                @team.Name
+                                            </div>
+                                            <div class="col">
+                                                <form method="post" asp-area="UserPanel" asp-controller="Groups" asp-action="RemoveTeam" asp-route-id="@Model.GroupId" asp-route-teamId="@team.Id">
+                                                    <button class="btn btn-danger btn-xs">
+                                                        Remove
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        <a asp-action="Overview" asp-controller="Seasons" asp-route-id="@Model.SeasonId" class="btn btn-outline-secondary">Back to Season overview</a>
+                    </div>
+
+                    <div class="col">
+                        <form asp-action="ManageTeams" asp-controller="Groups" asp-area="UserPanel" method="post">
+                            <input type="hidden" asp-for="GroupId" />
+                            <select class="form-control" style="min-height:700px;max-height:1200px"  multiple asp-for="SelectedTeams" asp-items="@Model.TeamsSelectList"></select>
+                            <button class="btn btn-primary w-100">
+                                Save
+                            </button>
+                        </form>
+                            </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col">
+                        <ul class=" list-group list-group-horizontal ">
+                            <li class="list-group-item">
+                                <a asp-action="Overview" asp-controller="Seasons" asp-route-id="@Model.SeasonId">Back to Overview</a>
+                            </li>
+                            <li class="list-group-item">A</li>
+                            <li class="list-group-item">A</li>
+                            <li class="list-group-item">A</li>
+                        </ul>
+                    </div>
+                </div>
+        </div>
+    </div>

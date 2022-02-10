@@ -1,0 +1,101 @@
+﻿@model FootballWorldWeb.Models.Groups.GroupViewViewModel
+<div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col">
+                    <ul class="list-group list-group-horizontal">
+                        <li class="list-group-item">
+                            <a asp-action="Overview" asp-controller="Competitions" 
+                               asp-route-id="@Model.Group.Season.Competition.Id"
+                               asp-route-slug="@Model.Group.Season.Competition.Slug"
+                               >
+                                @Model.Group.Season.Competition.Name
+                            </a> 
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="Details" asp-controller="Seasons"
+                               asp-route-id="@Model.Group.Season.Id"
+                               asp-route-slug="@Model.Group.Season.Slug"
+                               >
+                                @Model.Group.Season.Name</a>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>@Model.Group.Name.ToUpper()</strong>
+                        </li>
+                    </ul>                    
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Standings</h3>
+                    </div>
+                    @await Html.PartialAsync(
+                                            "~/Views/Competitions/Partials/_StandingsTablePartial.cshtml",
+                                            Model.Standings
+                                            )
+                </div>
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>
+                            Matches
+                        </h3>
+                        </div>
+                        <div>
+                        <ul class="list-group">
+                            @foreach (var match in Model.Matches)
+                            {
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col">
+
+                                            @if (match.GetHomeResult().Team.TeamType == TeamType.NationalTeam)
+                                            {
+                                                <img src="https://cdn.allsve.com/images/flags/waving/@match.GetHomeResult().Team.TeamLogo"
+                                                     width="32px" alt="@match.GetHomeResult().Team.Name" />
+                                            }
+                                            else
+                                            {
+                                                <img src="/images/@match.GetHomeResult().Team.TeamLogo"
+                                                     width="32px" alt="@match.GetHomeResult().Team.Name" />
+                                            }
+                                            @match.GetHomeResult().Team.Name
+                                        </div>
+                                        <div class="col text-center">
+                                            <h3>
+                                                @String.Format(
+                                                        "{0}:{1}",
+                                                        match.GetHomeResult().Score,
+                                                        match.GetAwayResult().Score
+                                                        )
+                                            </h3>
+                                            <small>
+                                                @match.Start.ToString("dd/MM/yyyy HH:mm")
+                                            </small>
+                                        </div>
+                                        <div class="col text-right">
+                                            @match.GetAwayResult().Team.Name
+                                            @if (match.GetAwayResult().Team.TeamType == TeamType.NationalTeam)
+                                            {
+                                                <img src="https://cdn.allsve.com/images/flags/waving/@match.GetAwayResult().Team.TeamLogo"
+                                                     width="32px" alt="@match.GetAwayResult().Team.Name" />
+                                            }
+                                            else
+                                            {
+                                                <img src="/images/@match.GetAwayResult().Team.TeamLogo"
+                                                     width="32px" alt="@match.GetAwayResult().Team.Name" />
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                        <small>UTC time zone</small>
+                </div>
+            </div>
+    </div>
+
+</div>

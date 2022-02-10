@@ -1,0 +1,59 @@
+﻿@model MatchFormViewModel
+<div class="row">
+    <div class="col">
+        <form asp-area="UserPanel" asp-controller="Matches" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <div class="row">
+                <div class="col">
+
+                    <select class="form-control" asp-for="HomeResult.Team.Id" asp-items="@Model.HomeTeamSelect">
+                    </select>
+                    <hr />
+                    <div class="form-group">
+                        <input asp-for="@Model.HomeResult.Score" class="form-control" />
+                    </div>
+                </div>
+                <div class="col">
+                    <select class="form-control" asp-for="AwayResult.Team.Id" asp-items="@Model.AwayTeamSelect">
+                    </select>
+                    <hr />
+                    <div class="form-group">
+                        <input asp-for="@Model.AwayResult.Score" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <input type="datetime" id="matchStart" asp-for="Start" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="label" asp-for="Finished">
+                            Finished:
+                            <input type="checkbox" asp-for="Finished" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" asp-route-groupId="@Model.GroupId" class="btn btn-outline-secondary">Back</a>
+
+        </form>
+        <hr />
+        <div>
+            <a asp-action="Create" asp-route-groupId="@Model.GroupId">Add New</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            $("#matchStart").flatpickr({
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+            });
+        })
+    </script>
+}

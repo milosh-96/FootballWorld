@@ -1,0 +1,33 @@
+﻿@model CompetitionOverviewViewModel
+<div class="row">
+    <div class="col">
+        <div class="row">
+            <div class="col">
+                <h2>Overview of @Model.Competition.Name</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3>Seasons</h3>
+                @if(Model.Competition.Seasons.Count > 0)
+            {
+                <ul class="list-group list-group-horizontal">
+                    @foreach(var season in Model.Competition.Seasons)
+                {
+                    <li class="list-group-item">
+                        <a asp-controller="Seasons" asp-action="Overview" asp-route-id="@season.Id">@season.Name</a>
+                    </li>  
+                    <li class="list-group-item">
+                        <a asp-controller="Seasons" asp-action="Edit" asp-route-id="@season.Id">Edit</a>
+                    </li>
+                }
+                </ul>
+            }
+                <hr />
+                <a asp-controller="Seasons" asp-action="Create" asp-route-competitionId="@Model.Id" class="btn btn-primary w-100">
+                    Add Season
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

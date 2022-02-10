@@ -1,0 +1,48 @@
+﻿@model IndexViewModel
+
+
+<div class="row">
+    <div class="col">
+               <div class="row">
+            <div class="col-md-9">
+               
+                <div>
+                    <div class="section-heading">
+                        <h3>Featured</h3>
+                    </div>
+                    <div class="row">
+                        @foreach (var competition in Model.Competitions)
+                        {
+                            <div class="col-md-4">
+                                <div>
+                                    <!--<img src="/images/@competition.CompetitionLogo" class="w-100" alt="@competition.Name" />-->
+                                    <h3>
+                                        <a asp-action="Overview" asp-controller="Competitions" 
+                                           asp-route-id="@competition.Id"
+                                           asp-route-slug="@competition.Slug"
+                                           >
+                                            @competition.Name
+                                        </a>
+                                    </h3>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+      
+                <div class="mt-2">
+                    <div class="section-heading">
+                        <h3>Ads</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="section-heading">
+                    <h3>
+                        Other Sites
+                    </h3>
+                </div>
+             </div>
+        </div>
+    </div>
+</div>

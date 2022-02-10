@@ -1,0 +1,66 @@
+﻿@model Standings
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>#</th>
+                <th>Team</th>
+                <th>Pts</th>
+                <th>P</th>
+                <th>W</th>
+                <th>D</th>
+                <th>L</th>
+                <th>GS</th>
+                <th>GC</th>
+                <th>HW</th>
+                <th>HG</th>
+                <th>AW</th>
+                <th>AG</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Items.Count > 0)
+            {
+                var pos = 1;
+                foreach (StandingsRow row in Model.Items
+                .OrderByDescending(x => x.Points)
+                .ThenByDescending(x => x.GoalsScored)
+                .ToList())
+                {
+                    <tr>
+                        <td>
+                            <div>
+                                @if (row.Team.TeamType == TeamType.NationalTeam)
+                                {
+                                    <img src="https://cdn.allsve.com/images/flags/waving/@row.Team.TeamLogo"
+                                         width="32px" alt="@row.Team.Name" />
+                                }
+                                else
+                                {
+                                    <img src="/images/@row.Team.TeamLogo"
+                                         width="32px" alt="@row.Team.Name" />
+                                }
+
+                            </div>
+                        </td>
+                        <td>@pos</td>
+                        <td>@row.Team.Name</td>
+                        <td>@row.Points</td>
+                        <td>@row.Played</td>
+                        <td>@row.Wins</td>
+                        <td>@row.Draws</td>
+                        <td>@row.Losses</td>
+                        <td>@row.GoalsScored</td>
+                        <td>@row.GoalsConceded</td>
+                        <td>@row.HomeWins</td>
+                        <td>@row.HomeGoals</td>
+                        <td>@row.AwayWins</td>
+                        <td>@row.AwayGoals</td>
+                    </tr>
+                    pos = pos + 1;
+                }
+            }
+        </tbody>
+    </table>
+</div>

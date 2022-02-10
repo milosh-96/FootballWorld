@@ -1,0 +1,29 @@
+﻿@model List<Team>
+
+<div class="row">
+    <div class="col">
+        <div class="text-left">
+            <a asp-action="Create" class="btn btn-xs btn-outline-secondary">Add New</a>
+            <a asp-action="Import" class="btn btn-xs btn-outline-secondary">Import</a>
+        </div>
+        <div class="mt-4">
+            <h3>Teams</h3>
+        </div>
+
+        <ul class="list-group">
+            @foreach(var team in Model)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-8">
+                            @team.Name
+                        </div>
+                        <div class="col">
+                            <a asp-action="Edit" asp-route-id="@team.Id">Edit</a>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

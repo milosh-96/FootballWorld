@@ -1,0 +1,47 @@
+﻿@model TeamFormViewModel
+<div class="row">
+    <div class="col">
+        <form enctype="multipart/form-data" asp-area="UserPanel" asp-controller="Teams" asp-action="Edit" method="post">
+            <div class="form-group">
+                <label class="label" asp-for="Name">
+                    Name
+                </label>
+                <input type="text" asp-for="Name" class="form-control" />
+            </div>
+            <div>
+                <span>Current logo</span>
+                <img src="/images/@Model.TeamLogo" alt="Alternate Text" width="64px" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ReuploadLogo">
+                    Reupload Logo
+                    <input type="checkbox" asp-for="ReuploadLogo" />
+
+                </label>
+                </div>
+            <div class="form-group">
+                <label class="label" asp-for="LogoUploadFile">Team Logo</label>
+                <input class="form-control" type="file" asp-for="LogoUploadFile" />
+            </div>
+            <div class="form-group">
+                <label class="label" asp-for="SelectedTeamType">Team Type</label>
+                <select asp-items="@Model.TeamTypeSelectList" asp-for="SelectedTeamType">
+                </select>
+            </div>
+            <button class="btn btn-primary">
+                Save
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+        </form>
+        <hr />
+        <form asp-area="UserPanel" onsubmit="return confirm('Are you sure?')"
+              asp-controller="Teams"
+              asp-action="Delete" 
+              asp-route-id="@Model.Id"
+              method="post">
+            <button type="submit" class="btn btn-danger">
+                Delete
+            </button>
+        </form>
+    </div>
+</div>

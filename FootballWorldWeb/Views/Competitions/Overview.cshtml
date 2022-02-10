@@ -1,0 +1,35 @@
+﻿@model FootballWorldWeb.Models.Competitions.CompetitionOverviewViewModel
+
+<div>
+    <div class="row">
+        <div class="col-2">
+            <div>
+                <img src="/images/@Model.Logo" alt="Alternate Text" class="w-100" />
+            </div>
+           
+        </div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col">
+                    <h2>@Model.Name</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div>
+                        <strong>Seasons: </strong>
+                        @foreach(var season in Model.Seasons)
+            {
+                <a asp-action="Details"
+                   asp-controller="Seasons"
+                   asp-route-id="@season.Id"
+                   asp-route-slug="@season.Slug"
+                   >@season.Name</a>
+            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
