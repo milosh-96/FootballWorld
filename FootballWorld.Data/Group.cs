@@ -24,6 +24,7 @@ namespace FootballWorld.Data
         public List<GroupTeam> GroupTeams { get; set; }
         public List<Match> Matches { get; set; }
         public List<Standings> Standings { get; set; }
+        public int Order { get; set; } = 0;
     }
 
     public enum GroupType

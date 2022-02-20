@@ -1,7 +1,10 @@
 ﻿@model MatchesIndexViewModel
 
+
 <div class="row">
     <div class="col">
+        <a asp-controller="Seasons" asp-action="Overview" asp-route-id="@Model.SeasonId">Back</a>
+        <hr />
         <div class="text-left">
             <a asp-action="Create" asp-route-groupId="@Model.GroupId" class="btn btn-xs btn-outline-secondary">Add New</a>
         </div>
@@ -15,10 +18,11 @@
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-md-8">
-                            @if(match.Finished) { <strong>F: </strong>}
+                            @if (match.Finished)
+                            {<strong>F: </strong>}
                             @String.Format("{0}-{1}",
-                           match.Results.Where(x=>x.Type==MatchResultType.HomeTeam).FirstOrDefault().Team.Name,
-                           match.Results.Where(x=>x.Type==MatchResultType.AwayTeam).FirstOrDefault().Team.Name
+                           match.Results.Where(x => x.Type == MatchResultType.HomeTeam).FirstOrDefault().Team.Name,
+                           match.Results.Where(x => x.Type == MatchResultType.AwayTeam).FirstOrDefault().Team.Name
                            )
                         </div>
                         <div class="col">

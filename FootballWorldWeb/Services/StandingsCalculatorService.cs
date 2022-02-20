@@ -63,7 +63,7 @@ namespace FootballWorldWeb.Services
         {
             List<StandingsRow> standingsRows = new List<StandingsRow>();
 
-            
+            Standings standings = dbContext.Standings.Where(x => x.Id == standingsId).FirstOrDefault();
             foreach (Team team in teams)
             {
                 bool update = true;
@@ -97,7 +97,7 @@ namespace FootballWorldWeb.Services
 
                 }
 
-                foreach (var result in results.Where(x => x.Match.Finished == true).ToList())
+                foreach (var result in results.Where(x => x.Match.Finished == true).Where(x=>x.Match.GroupId==standings.GroupId).ToList())
                 {
                     // query each matchresult from match of current matchresult //
                     foreach (var resultMatch in result.Match.Results)

@@ -27,6 +27,7 @@ namespace FootballWorldWeb.Areas.UserPanel.Models
         public int SeasonId { get; set; }
         public int GroupTypeValue { get; set; } = 0;
         public SelectList GroupTypeSelect { get; set; }
+        public int Order { get; set; } = 0;
 
     }
 }

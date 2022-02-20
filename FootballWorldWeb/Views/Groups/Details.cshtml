@@ -38,62 +38,10 @@
                                             )
                 </div>
                 <div class="col-12">
-                    <div class="section-heading">
-                        <h3>
-                            Matches
-                        </h3>
-                        </div>
-                        <div>
-                        <ul class="list-group">
-                            @foreach (var match in Model.Matches)
-                            {
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col">
-
-                                            @if (match.GetHomeResult().Team.TeamType == TeamType.NationalTeam)
-                                            {
-                                                <img src="https://cdn.allsve.com/images/flags/waving/@match.GetHomeResult().Team.TeamLogo"
-                                                     width="32px" alt="@match.GetHomeResult().Team.Name" />
-                                            }
-                                            else
-                                            {
-                                                <img src="/images/@match.GetHomeResult().Team.TeamLogo"
-                                                     width="32px" alt="@match.GetHomeResult().Team.Name" />
-                                            }
-                                            @match.GetHomeResult().Team.Name
-                                        </div>
-                                        <div class="col text-center">
-                                            <h3>
-                                                @String.Format(
-                                                        "{0}:{1}",
-                                                        match.GetHomeResult().Score,
-                                                        match.GetAwayResult().Score
-                                                        )
-                                            </h3>
-                                            <small>
-                                                @match.Start.ToString("dd/MM/yyyy HH:mm")
-                                            </small>
-                                        </div>
-                                        <div class="col text-right">
-                                            @match.GetAwayResult().Team.Name
-                                            @if (match.GetAwayResult().Team.TeamType == TeamType.NationalTeam)
-                                            {
-                                                <img src="https://cdn.allsve.com/images/flags/waving/@match.GetAwayResult().Team.TeamLogo"
-                                                     width="32px" alt="@match.GetAwayResult().Team.Name" />
-                                            }
-                                            else
-                                            {
-                                                <img src="/images/@match.GetAwayResult().Team.TeamLogo"
-                                                     width="32px" alt="@match.GetAwayResult().Team.Name" />
-                                            }
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                        <small>UTC time zone</small>
+                    @await Html.PartialAsync(
+                                            "~/Views/Competitions/Partials/_MatchesListViewPartial.cshtml",
+                                            Model.Matches
+                                            )
                 </div>
             </div>
     </div>

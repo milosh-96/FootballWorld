@@ -101,6 +101,7 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
 
             viewModel.GroupTypeSelect =  new SelectList(selectListItems, "Value", "Text");
             viewModel.Id = group.Id;
+            viewModel.Order = group.Order;
             return View(viewModel);
         }
 
@@ -110,6 +111,7 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
             Group group = dbContext.Groups.Include(x=>x.Season).ThenInclude(x=>x.Competition).Where(x => x.Id == formData.Id).FirstOrDefault();
             if(group == null) { return new NotFoundResult(); } 
             group.Name = formData.Name;
+            group.Order = formData.Order;
             group.GroupType = (GroupType)Enum.Parse(typeof(GroupType), formData.GroupTypeValue.ToString());
             string slug = String.Format(
                 "{0}-{1}",

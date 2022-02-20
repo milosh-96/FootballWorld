@@ -42,8 +42,8 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
             try
             {
                 Team team = new Team();
-                team.Name = formData.Name;
-                team.Slug = new Slugify.SlugHelper().GenerateSlug(formData.Name);
+                team.Name = formData.Name.Trim();
+                team.Slug = new Slugify.SlugHelper().GenerateSlug(formData.Name.Trim());
                 team.TeamType = formData.SelectedTeamType;
 
                 if (formData.LogoUploadFile != null)
@@ -81,9 +81,9 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
                 Team team = dbContext.Teams.Where(x => x.Id == id).FirstOrDefault();
                 if (team == null) { return new NotFoundResult(); }
                 formData.TeamLogo = team.TeamLogo;
-                team.Name = formData.Name;
+                team.Name = formData.Name.Trim();
                 team.TeamType = formData.SelectedTeamType;
-                team.Slug = new Slugify.SlugHelper().GenerateSlug(formData.Name);
+                team.Slug = new Slugify.SlugHelper().GenerateSlug(formData.Name.Trim());
                 if (formData.ReuploadLogo)
                 {
                     if (formData.LogoUploadFile != null) { 

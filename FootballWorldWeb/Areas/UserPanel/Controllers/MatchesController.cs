@@ -43,6 +43,7 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
             List<Match> matches = query.ToList();
             viewModel.Matches = matches;
             viewModel.GroupId = groupId;
+            viewModel.SeasonId = group.SeasonId;
             return View(viewModel);
         }
 
@@ -54,10 +55,10 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
             Group group = dbContext.Groups.Where(x => x.Id == groupId).Include(x=>x.Season).FirstOrDefault();
             if(group == null) { return new NotFoundResult(); }
                 viewModel.HomeTeamSelect = new SelectList(
-                dbContext.GroupTeams.Where(x=>x.GroupId==groupId).Select(x=>x.Team).ToList(),
+                dbContext.GroupTeams.Where(x=>x.GroupId==groupId).Select(x=>x.Team).OrderBy(x => x.Name).ToList(),
                 "Id", "Name");
             viewModel.AwayTeamSelect = new SelectList(
-                dbContext.GroupTeams.Where(x => x.GroupId == groupId).Select(x => x.Team).ToList()
+                dbContext.GroupTeams.Where(x => x.GroupId == groupId).Select(x => x.Team).OrderBy(x=>x.Name).ToList()
                 ,"Id","Name");
 
             viewModel.GroupId = group.Id;
@@ -77,8 +78,12 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
             {
                 Start = formData.Start,
                 Finished = formData.Finished,
-                GroupId=formData.GroupId
+                GroupId = formData.GroupId,
             };
+            if (formData.Comments != null)
+            {
+                match.Comments = formData.Comments.Trim();
+            }
             dbContext.Add(match);
             dbContext.SaveChanges();
 
@@ -124,14 +129,15 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
             viewModel.Start = match.Start;
             viewModel.Finished = match.Finished;
             viewModel.GroupId = match.GroupId;
+            viewModel.Comments = match.Comments;
             viewModel.HomeResult = match.Results.Where(x => x.Type == MatchResultType.HomeTeam).FirstOrDefault();
             viewModel.AwayResult = match.Results.Where(x => x.Type == MatchResultType.AwayTeam).FirstOrDefault();
 
             viewModel.HomeTeamSelect = new SelectList(
-                dbContext.GroupTeams.Include(x=>x.Team).Where(x=>x.GroupId==groupId).Select(x=>x.Team).ToList(), 
+                dbContext.GroupTeams.Include(x=>x.Team).Where(x=>x.GroupId==groupId).Select(x=>x.Team).OrderBy(x => x.Name).ToList(), 
                 "Id", "Name",viewModel.HomeResult.Team.Id);
             viewModel.AwayTeamSelect = new SelectList(
-                dbContext.GroupTeams.Include(x => x.Team).Where(x => x.GroupId == groupId).Select(x => x.Team).ToList(),"Id","Name",viewModel.AwayResult.Team.Id);
+                dbContext.GroupTeams.Include(x => x.Team).Where(x => x.GroupId == groupId).Select(x => x.Team).OrderBy(x => x.Name).ToList(),"Id","Name",viewModel.AwayResult.Team.Id);
 
             return View(viewModel);
         }
@@ -159,11 +165,31 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
             awayResult.Score = formData.AwayResult.Score;
             awayResult.TeamId = formData.AwayResult.Team.Id;
 
+            if (formData.Comments != null)
+            {
+                match.Comments = formData.Comments.Trim();
+            }
             dbContext.SaveChanges();
 
             standingsCalculatorService.UpdateDbStandings(match.GroupId);
 
             return RedirectToAction("Edit", new { id = id, groupId = match.GroupId });
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if(id < 1) { return new BadRequestResult(); }
+            Match match = dbContext.Matches.Where(x => x.Id == id).FirstOrDefault();
+            if(match==null)
+            {
+                return new NotFoundResult();
+            }
+
+            dbContext.Matches.Remove(match);
+            dbContext.SaveChanges();
+            standingsCalculatorService.UpdateDbStandings(match.GroupId);
+            return RedirectToAction("Index",new { groupId = match.GroupId });
         }
     }
 }

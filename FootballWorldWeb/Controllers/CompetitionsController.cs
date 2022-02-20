@@ -19,7 +19,6 @@ namespace FootballWorldWeb.Controllers
             this.dbContext = dbContext;
         }
 
-        [Route("/Competition/{slug}/{id}")]
         public IActionResult Overview(int id,string slug)
         {
             Competition competition = dbContext.Competitions.Include(x=>x.Seasons).Where(x => x.Id == id).FirstOrDefault();

@@ -16,47 +16,75 @@
         </div>
         <div class="col-10">
             <div class="row">
-                <div class="col">
+                <div class="col-12">
                     <h2>@ViewData["Title"]</h2>
                 </div>
             </div>
             <div class="row">
-                @if (Model.SingleGroup)
+                @foreach (Group group in Model.Groups
+                    .Where(x => x.GroupType == GroupType.Knockout)
+                    .OrderByDescending(x=>x.Order)
+                    .ToList())
                 {
-                <div class="col">
-                    <div class="section-heading"><h3>
-                            Standings
-                         </h3></div>
-                    @await Html.PartialAsync(
-                                            "~/Views/Competitions/Partials/_StandingsTablePartial.cshtml",
-                                            Model.Groups.FirstOrDefault().Standings.FirstOrDefault()
-                                            )
-                </div>
-                }
-                else
-                {
-                    @foreach (Group group in Model.Groups)
+                    if (group.GroupType == GroupType.Knockout)
                     {
-                        if (group.GroupType == GroupType.League)
-                        {
-            <div class="col col-md-4">
-                <div class="section-heading small"><h3>
-                                                       <a asp-action="Details" asp-controller="Groups"
-                                                          asp-route-slug="@group.Slug" asp-route-id="@group.Id">@group.Name</a>
-                      </h3></div>
-                @if (group.Standings.Count > 0)
-                {
-                    @await Html.PartialAsync(
-                   "~/Views/Competitions/Partials/_CompactStandingsTablePartial.cshtml",
-                   group.Standings.FirstOrDefault()
-                   )
-                }
-            </div>
-                        }
+                        @await Html.PartialAsync(
+                                            "~/Views/Competitions/Partials/_MatchesListViewPartial.cshtml",
+                                            group.Matches,
+                                            new ViewDataDictionary(ViewData) { { "WidgetTitle", group.Name } }
+                                            )
                     }
                 }
             </div>
+            <div class="row">
+                @if (Model.SingleGroup)
+                {
+                    <div class="col">
+                        <div class="section-heading">
+                            <h3>
+                                Standings
+                            </h3>
+                        </div>
+                        @await Html.PartialAsync(
+                                                "~/Views/Competitions/Partials/_StandingsTablePartial.cshtml",
+                                                Model.Groups.FirstOrDefault().Standings.FirstOrDefault()
+                                                )
+                    </div>
+                }
+                else
+                {
+                    
+                        @foreach (Group group in Model.Groups.Where(x => x.GroupType == GroupType.League).ToList())
+                        {
+                            if (group.GroupType == GroupType.League)
+                            {
+                                <div class="col col-md-4">
+                                    <div class="section-heading small">
+                                        <h3>
+                                            <a asp-action="Details" asp-controller="Groups"
+                                               asp-route-slug="@group.Slug" asp-route-id="@group.Id">@group.Name</a>
+                                        </h3>
+                                    </div>
+                                    @if (group.Standings.Count > 0)
+                                    {
+                                        @await Html.PartialAsync(
+                                       "~/Views/Competitions/Partials/_CompactStandingsTablePartial.cshtml",
+                                       group.Standings.FirstOrDefault()
+                                       )
+                                    }
+                                </div>
+                            }
+                        }
+                    }
+                </div>
         </div>
     </div>
-
+    <hr />
+    <div>
+        <p>
+            UTC: @DateTime.UtcNow.ToString()
+        </p> <p>
+            Converted: @DateTime.UtcNow.ToLocalTime().ToString()
+        </p>
+    </div>
 </div>

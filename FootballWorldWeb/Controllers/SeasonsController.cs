@@ -35,7 +35,7 @@ namespace FootballWorldWeb.Controllers
                 .ThenInclude(g => g.Standings)
                 .ThenInclude(s => s.Items).ThenInclude(t => t.Team)
                     .Include(g => g.Groups)
-                    .ThenInclude(g => g.Matches)
+                    .ThenInclude(g => g.Matches).ThenInclude(t=>t.Results).ThenInclude(t=>t.Team)
                     .Where(x => x.Id == id)
                     .FirstOrDefault();
                 if (season == null) { return new NotFoundResult(); }

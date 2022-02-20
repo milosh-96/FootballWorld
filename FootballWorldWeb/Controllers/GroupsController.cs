@@ -19,7 +19,6 @@ namespace FootballWorldWeb.Controllers
             this.dbContext = dbContext;
         }
 
-        [Route("{slug}/{id}")]
         public IActionResult Details(int id)
         {
             Group group = dbContext.Groups.Where(x => x.Id == id)

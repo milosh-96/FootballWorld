@@ -21,6 +21,7 @@ namespace FootballWorldWeb.Areas.UserPanel.Models
         public MatchResult HomeResult { get; set; } = new MatchResult() { Type = MatchResultType.HomeTeam };
         public MatchResult AwayResult { get; set; } = new MatchResult() { Type = MatchResultType.AwayTeam };
 
+        public string Comments { get; set; } = "";
 
         public int GroupId { get; set; }
     }

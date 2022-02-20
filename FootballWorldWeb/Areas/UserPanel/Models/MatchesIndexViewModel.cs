@@ -10,5 +10,6 @@ namespace FootballWorldWeb.Areas.UserPanel.Models
     {
         public int GroupId { get; set; }
         public List<Match> Matches { get; set; } = new List<Match>();
+        public int SeasonId { get; set; } = 0;
     }
 }

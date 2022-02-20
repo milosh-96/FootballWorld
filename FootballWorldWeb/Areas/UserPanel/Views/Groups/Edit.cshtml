@@ -3,6 +3,8 @@
     <div class="col">
         <div class="row">
             <div class="col">
+                <a asp-controller="Seasons" asp-action="Overview" asp-route-id="@Model.SeasonId">Back</a>
+                <hr />
                 <h2>@ViewData["Title"]</h2>
             </div>
         </div>
@@ -18,6 +20,10 @@
                         <label>Type</label>
                         <select class="form-control" asp-items="@Model.GroupTypeSelect" asp-for="GroupTypeValue">
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Order No</label>
+                        <input class="form-control w-25" type="number" asp-for="Order" />
                     </div>
                     <div class="row">
                         <div class="col">
