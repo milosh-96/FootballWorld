@@ -1,4 +1,6 @@
 ﻿using FootballWorld.Data;
+using FootballWorldWeb.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FootballWorldWeb.Data
 {
-    public class FootballDbContext : DbContext
+    public class FootballDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,int>
     {
 
         public FootballDbContext(DbContextOptions options) : base(options)

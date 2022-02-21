@@ -11,6 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FootballWorldWeb.Services;
+using FootballWorldWeb.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace FootballWorldWeb
 {
@@ -29,6 +31,12 @@ namespace FootballWorldWeb
             services.AddDbContext<FootballDbContext>(options=> {
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+
+            }).AddRoles<ApplicationRole>()
+            .AddEntityFrameworkStores<FootballDbContext>();
             services.AddControllersWithViews();
 
             services.AddScoped<UploadService>();
@@ -53,7 +61,7 @@ namespace FootballWorldWeb
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -63,6 +71,7 @@ namespace FootballWorldWeb
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{slug?}/{id?}");
+                endpoints.MapRazorPages(); // 
             });
         }
     }

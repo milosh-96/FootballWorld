@@ -24,6 +24,8 @@
     <Compile Remove="Migrations\20220114012305_Setup.Designer.cs" />
     <Compile Remove="Migrations\20220114012922_Setup.cs" />
     <Compile Remove="Migrations\20220114012922_Setup.Designer.cs" />
+    <Compile Remove="Migrations\20220221115441_AddIdentity.cs" />
+    <Compile Remove="Migrations\20220221115441_AddIdentity.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,7 +38,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.22">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.21" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.21">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -46,11 +49,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\dummy\**\*">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
     <ProjectReference Include="..\FootballWorld.Data\FootballWorld.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\UserPanel\Data\" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <ResolveStaticWebAssetsInputsDependsOn>RemoveIdentityAssets</ResolveStaticWebAssetsInputsDependsOn>
+  </PropertyGroup>
+
+  <Target Name="RemoveIdentityAssets">
+    <ItemGroup>
+      <StaticWebAsset Remove="@(StaticWebAsset)" Condition="%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'" />
+    </ItemGroup>
+  </Target>
+
 
 </Project>
