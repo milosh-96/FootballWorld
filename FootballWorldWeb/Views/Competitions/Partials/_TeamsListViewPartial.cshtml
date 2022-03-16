@@ -1,0 +1,41 @@
+﻿@model List<Team>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Team</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                var pos = 1;
+                foreach (Team row in Model)
+                {
+                    <tr>
+                        <td>
+                            <div>
+                                @if (row.TeamType == TeamType.NationalTeam)
+                                {
+                                    <img src="@LinkHandler.MakeImageLink(row.TeamLogo,"flags/waving")"
+                                         width="32px" alt="@row.Name" />
+                                }
+                                else
+                                {
+                                    <img src="@LinkHandler.MakeFootballImageLink(row.TeamLogo,"teams")"
+                                         width="32px" alt="@row.Name" />
+                                }
+
+                            </div>
+                        </td>
+                        <td>
+                            @row.Name
+                        </td>
+                    </tr>
+                    pos = pos + 1;
+                }
+            }
+        </tbody>
+    </table>
+</div>

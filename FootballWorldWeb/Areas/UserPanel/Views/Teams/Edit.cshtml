@@ -10,7 +10,7 @@
             </div>
             <div>
                 <span>Current logo</span>
-                <img src="/images/@Model.TeamLogo" alt="Alternate Text" width="64px" />
+                <img src="@LinkHandler.MakeFootballImageLink(Model.TeamLogo,"teams")" alt="Alternate Text" width="64px" />
             </div>
             <div class="form-group">
                 <label asp-for="ReuploadLogo">

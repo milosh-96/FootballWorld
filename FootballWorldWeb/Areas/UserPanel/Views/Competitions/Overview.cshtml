@@ -11,15 +11,21 @@
                 <h3>Seasons</h3>
                 @if(Model.Competition.Seasons.Count > 0)
             {
-                <ul class="list-group list-group-horizontal">
+                <ul class="list-group">
                     @foreach(var season in Model.Competition.Seasons)
                 {
                     <li class="list-group-item">
-                        <a asp-controller="Seasons" asp-action="Overview" asp-route-id="@season.Id">@season.Name</a>
+                        <div class="row">
+                            <div class="col-8">
+                                <a asp-controller="Seasons" asp-action="Overview" asp-route-id="@season.Id">@season.Name</a>
+
+                            </div>
+                            <div class="col-4">
+                                <a class="btn btn-secondary" asp-controller="Seasons" asp-action="Edit" asp-route-id="@season.Id">Edit</a>
+                            </div>
+                        </div>
                     </li>  
-                    <li class="list-group-item">
-                        <a asp-controller="Seasons" asp-action="Edit" asp-route-id="@season.Id">Edit</a>
-                    </li>
+                  
                 }
                 </ul>
             }

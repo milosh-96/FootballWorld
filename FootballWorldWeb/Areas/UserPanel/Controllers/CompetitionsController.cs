@@ -13,9 +13,14 @@ using System.Threading.Tasks;
 namespace FootballWorldWeb.Areas.UserPanel.Controllers
 {
     [Area("UserPanel")]
+
+
     public class CompetitionsController : Controller
     {
+
         private readonly FootballDbContext dbContext;
+
+        private string uploadSubFolder = "competitions";
 
         public CompetitionsController(FootballDbContext dbContext)
         {
@@ -59,7 +64,7 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
                 {
                     if (formData.LogoUploadFile != null)
                     {
-                        Services.UploadService.Upload(formData.LogoUploadFile);
+                        Services.UploadService.Upload(formData.LogoUploadFile,this.uploadSubFolder);
                         competition.CompetitionLogo = formData.LogoUploadFile.FileName;
                     }
                 }
@@ -97,7 +102,7 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
             {
                 if(formData.LogoUploadFile != null)
                 {
-                    Services.UploadService.Upload(formData.LogoUploadFile);
+                    Services.UploadService.Upload(formData.LogoUploadFile, this.uploadSubFolder);
                     competition.CompetitionLogo = formData.LogoUploadFile.FileName;
                 }
             }

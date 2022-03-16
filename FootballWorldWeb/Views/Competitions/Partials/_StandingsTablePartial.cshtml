@@ -33,12 +33,12 @@
                             <div>
                                 @if (row.Team.TeamType == TeamType.NationalTeam)
                                 {
-                                    <img src="https://cdn.allsve.com/images/flags/waving/@row.Team.TeamLogo"
+                                    <img src="@LinkHandler.MakeImageLink(row.Team.TeamLogo,"flags/waving")"
                                          width="32px" alt="@row.Team.Name" />
                                 }
                                 else
                                 {
-                                    <img src="/images/@row.Team.TeamLogo"
+                                    <img src="@LinkHandler.MakeFootballImageLink(row.Team.TeamLogo,"teams")"
                                          width="32px" alt="@row.Team.Name" />
                                 }
 

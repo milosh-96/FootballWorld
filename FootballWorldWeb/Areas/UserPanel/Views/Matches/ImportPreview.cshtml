@@ -1,0 +1,31 @@
+﻿@model ImportPreviewViewModel<FootballWorld.Data.Match>
+
+    <div>
+        <div class="row">
+            <div class="col">
+                <h2> @ViewData["Title"]</h2>
+
+                <div class="row">
+                    <div class="col">
+                        <p>These matches are imported</p>
+                        <table class="table">
+                            @foreach (var match in Model.Items)
+                            {
+                                <tr>
+                                    <td>
+                                    @String.Format("{0}-{1}",
+                                   match.GetHomeResult().Team.Name,
+                                   @match.GetAwayResult().Team.Name)
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+           
+        </div>
+    </div>

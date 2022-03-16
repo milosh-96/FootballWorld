@@ -13,6 +13,7 @@ namespace FootballWorldWeb.Models.Competitions
 
         public Season Season { get; set; }
         public List<Group> Groups { get; set; }
+        public List<Group> Lists { get; set; }
 
         public Competition Competition { get; set; }
 

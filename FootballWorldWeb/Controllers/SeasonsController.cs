@@ -32,6 +32,8 @@ namespace FootballWorldWeb.Controllers
             Season season = dbContext.Seasons
                 .Include(c => c.Competition)
                 .Include(g => g.Groups)
+                .ThenInclude(g=>g.GroupTeams).ThenInclude(t=>t.Team)
+                .Include(g=>g.Groups)
                 .ThenInclude(g => g.Standings)
                 .ThenInclude(s => s.Items).ThenInclude(t => t.Team)
                     .Include(g => g.Groups)
@@ -44,6 +46,7 @@ namespace FootballWorldWeb.Controllers
                 viewModel.Competition = season.Competition;
                 viewModel.Groups = season.Groups;
                 viewModel.SingleGroup = season.Groups.Count > 1 ? false : true;
+            viewModel.Lists = season.Groups.Where(x => x.GroupType == GroupType.TeamsList).ToList();
                 ViewData["Title"] = String.Format("Season {0} of {1}", viewModel.Season.Name, viewModel.Competition.Name);
 
                 return View(viewModel);

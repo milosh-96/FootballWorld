@@ -29,6 +29,6 @@ namespace FootballWorld.Data
 
     public enum GroupType
     {
-        League, Knockout
+        League, Knockout, TeamsList
     }
 }

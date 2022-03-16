@@ -19,16 +19,30 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
     public class TeamsController : Controller
     {
         private readonly FootballDbContext dbContext;
-
+        private string uploadSubFolder = "teams";
         public TeamsController(FootballDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(TeamsIndexViewModel? formData)
         {
             ViewData["Title"] = "List of Teams";
-            return View(dbContext.Teams.ToList());
+            TeamsIndexViewModel viewModel = new TeamsIndexViewModel();
+            List<Team> teams = dbContext.Teams.ToList();
+            if (formData != null)
+            {
+                if(formData.FilterBy != null && formData.FilterBy != "all")
+                {
+                    if(teams.Count > 0)
+                    {
+                        teams = teams.Where(x => x.TeamType == (TeamType)Enum.Parse(typeof(TeamType),formData.FilterBy)).ToList();
+                    }
+                }
+            }
+            viewModel.Teams = teams.OrderBy(x=>x.Name).ToList();
+            
+            return View(viewModel);
         }
 
         public IActionResult Create()
@@ -49,7 +63,7 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
                 if (formData.LogoUploadFile != null)
                 {
                     team.TeamLogo = formData.LogoUploadFile.FileName;
-                    Services.UploadService.Upload(formData.LogoUploadFile);
+                    Services.UploadService.Upload(formData.LogoUploadFile,this.uploadSubFolder);
                 }
                 dbContext.Teams.Add(team);
                 dbContext.SaveChanges();
@@ -88,7 +102,7 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
                 {
                     if (formData.LogoUploadFile != null) { 
                         team.TeamLogo = formData.LogoUploadFile.FileName;
-                   Services.UploadService.Upload(formData.LogoUploadFile);
+                   Services.UploadService.Upload(formData.LogoUploadFile,this.uploadSubFolder);
                     }
                 }
                 var result = dbContext.SaveChanges();

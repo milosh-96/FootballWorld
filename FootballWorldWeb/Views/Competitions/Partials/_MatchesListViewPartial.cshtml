@@ -1,5 +1,6 @@
 ﻿@model List<Match>
 
+<div class="row">
     <div class="col-12">
         <div class="section-heading">
             <h3>
@@ -10,73 +11,76 @@
             <ul class="list-group">
                 @foreach (var match in Model.OrderByDescending(x=>x.Start).ToList())
                 {
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col">
-
-                                @if (match.GetHomeResult().Team.TeamType == TeamType.NationalTeam)
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col">
+                            @if (match.GetHomeResult().Team.TeamType == TeamType.NationalTeam)
                                 {
-                                    <img src="https://cdn.allsve.com/images/flags/waving/@match.GetHomeResult().Team.TeamLogo"
-                                         width="32px" alt="@match.GetHomeResult().Team.Name" />
+                            <img src="@LinkHandler.MakeImageLink(match.GetHomeResult().Team.TeamLogo,"flags/waving")"
+                                 width="32px" alt="@match.GetHomeResult().Team.Name" />
                                 }
                                 else
                                 {
-                                    <img src="/images/@match.GetHomeResult().Team.TeamLogo"
-                                         width="32px" alt="@match.GetHomeResult().Team.Name" />
-                                }
-                                @match.GetHomeResult().Team.Name
-                            </div>
-                            <div class="col text-center">
-                                <small>
-                                    @if (match.Finished)
-                                    {
-                                        @match.Start.ToString("dd/MM/yyyy HH:mm")
-                                    }
-                                    else
-                                    {
-                                        @match.Start.ToString("dd/MM/yyyy")
-
-                                    }
-                                </small>
-                                <h3>
-
-                                    @if (match.Finished)
-                                    {
-                                        @String.Format(
-                      "{0}:{1}",
-                      match.GetHomeResult().Score,
-                      match.GetAwayResult().Score
-                      );
-                                    }
-                                    else
-                                    {
-                                        @match.Start.ToString("HH:mm")
-
-                                    }
-                                </h3>
-                                @if (match.Comments != null && match.Comments.Length > 1)
-                                {
-                                    <p>@match.Comments</p>
+                            <img src="@LinkHandler.MakeFootballImageLink(match.GetHomeResult().Team.TeamLogo,"teams")"
+                                 width="32px" alt="@match.GetHomeResult().Team.Name" />
                                 }
 
-                            </div>
-                            <div class="col text-right">
-                                @match.GetAwayResult().Team.Name
-                                @if (match.GetAwayResult().Team.TeamType == TeamType.NationalTeam)
-                                {
-                                    <img src="https://cdn.allsve.com/images/flags/waving/@match.GetAwayResult().Team.TeamLogo"
-                                         width="32px" alt="@match.GetAwayResult().Team.Name" />
-                                }
-                                else
-                                {
-                                    <img src="/images/@match.GetAwayResult().Team.TeamLogo"
-                                         width="32px" alt="@match.GetAwayResult().Team.Name" />
-                                }
-                            </div>
+
+                            @match.GetHomeResult().Team.Name
                         </div>
-                    </li>
+                        <div class="col text-center">
+                            <small>
+                                @if (match.Finished)
+                                    {
+                                @match.Start.ToString("dd/MM/yyyy HH:mm")
+                                    }
+                                    else
+                                    {
+                                @match.Start.ToString("dd/MM/yyyy")
+
+                                    }
+                            </small>
+                            <h3>
+
+                                @if (match.Finished)
+                                    {
+                                @String.Format(
+              "{0}:{1}",
+              match.GetHomeResult().Score,
+              match.GetAwayResult().Score
+              );
+                                    }
+                                    else
+                                    {
+                                @match.Start.ToString("HH:mm")
+
+                                    }
+                            </h3>
+                            @if (match.Comments != null && match.Comments.Length > 1)
+                                {
+                            <p>@match.Comments</p>
+                                }
+
+                        </div>
+                        <div class="col text-right">
+                            @match.GetAwayResult().Team.Name
+                            @if (match.GetAwayResult().Team.TeamType == TeamType.NationalTeam)
+                                {
+                            <img src="@LinkHandler.MakeImageLink(match.GetAwayResult().Team.TeamLogo,"flags/waving")"
+                                 width="32px" alt="@match.GetAwayResult().Team.Name" />
+                                }
+                                else
+                                {
+                            <img src="@LinkHandler.MakeFootballImageLink(match.GetAwayResult().Team.TeamLogo,"teams")"
+                                 width="32px" alt="@match.GetAwayResult().Team.Name" />
+                                }
+
+                        </div>
+                    </div>
+                </li>
                 }
             </ul>
         </div>
         <small>UTC time zone</small>
     </div>
+</div>

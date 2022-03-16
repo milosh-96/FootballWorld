@@ -23,7 +23,7 @@ namespace FootballWorldWeb.Services
         {
             Group group = dbContext.Groups.Where(x => x.Id == groupId).Include(x => x.Standings).FirstOrDefault();
             if (group == null) { return false; }
-            if(group.GroupType == GroupType.Knockout) { return false; }
+            if(group.GroupType == GroupType.Knockout ) { return false; }
             Standings standings = new Standings();
 
             if (group.Standings.Count() < 1)

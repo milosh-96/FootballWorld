@@ -1,16 +1,26 @@
 ﻿.section-heading {
     color: #fff;
-    background: rgb(2,0,36);
-    background: linear-gradient(42deg, rgba(2,0,36,1) 95%, rgba(9,9,121,0.9) 95%);
-}
-.section-heading:hover {
-        background: linear-gradient(42deg, rgba(2,0,36,1) 90%, rgba(9,9,121,1) 90%);
-
+    background: #4F4F4F;
+    background: linear-gradient(42deg,#333,#4F4F4F 90%);
 }
 .section-heading h3 {
     padding:5px;
     margin:0;
 }
+.section-heading a {color:#fff;}
 .section-heading.small h3 {
     font-size:20px;
+}
+header {
+    padding:6px 0;
+    background:#333;
+    margin-bottom:30px;
+}
+
+table.table {
+    width:100%;
+}
+
+li {
+    list-style-type:none;
 }

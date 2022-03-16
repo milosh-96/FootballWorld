@@ -9,5 +9,6 @@ namespace FootballWorldWeb.Areas.UserPanel.Models
     public class ImportPreviewViewModel<T> 
     {
         public List<T> Items { get; set; } = new List<T>();
+        public int RelationshipId { get; set; }
     }
 }

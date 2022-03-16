@@ -124,8 +124,11 @@ namespace FootballWorldWeb.Areas.UserPanel.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-
-            return RedirectToAction("Overview", "Seasons");
+            Season season = dbContext.Seasons.Where(x => x.Id == id).FirstOrDefault();
+            if(season==null) { return new NotFoundResult(); }
+            dbContext.Seasons.Remove(season);
+            dbContext.SaveChanges();
+            return RedirectToAction("Overview", "Competitions",new { id = season.CompetitionId });
         }
     }
 }

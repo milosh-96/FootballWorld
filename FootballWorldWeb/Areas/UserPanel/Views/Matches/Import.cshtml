@@ -1,0 +1,29 @@
+﻿@model ImportFormViewModel
+<div class="row">
+    <div class="col">
+        <h2>@ViewData["Title"]</h2>
+        <div class="alert alert-info">
+           You can import matches using this form. Max number of matches is 20. You can't import stats and
+            other details.  
+        </div>
+        <form enctype="multipart/form-data"
+              asp-area="UserPanel"
+              asp-controller="Matches"
+              asp-action="ImportPreview"
+              method="post">
+            <div class="form-group">
+                <label class="label" asp-for="UploadedFile">
+                    Select File
+                </label>
+                <input type="file" asp-for="UploadedFile" class="form-control" />
+                <input type="hidden" asp-for="RelationshipId" class="form-control" />
+
+            </div>
+
+            <button class="btn btn-primary">
+                Import
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+        </form>
+    </div>
+</div>

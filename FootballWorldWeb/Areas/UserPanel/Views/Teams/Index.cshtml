@@ -1,4 +1,4 @@
-﻿@model List<Team>
+﻿@model TeamsIndexViewModel
 
 <div class="row">
     <div class="col">
@@ -9,9 +9,40 @@
         <div class="mt-4">
             <h3>Teams</h3>
         </div>
+        <div>
 
+            <form asp-action="Index" method="get">
+                Show Only:
+                <div class="form-group d-inline-block">
+                    <label class="label">
+                        All
+                        <input type="radio" value="all" asp-for="FilterBy" />
+                    </label>
+                </div>
+                <div class="form-group d-inline-block">
+                    <label class="label">
+                        Clubs
+                        <input type="radio" value="@TeamType.Club" asp-for="FilterBy" />
+                    </label>
+                </div>
+                <div class="form-group d-inline-block">
+                    <label class="label">
+                        National
+                        <input type="radio" value="@TeamType.NationalTeam" asp-for="FilterBy" />
+                    </label>
+                </div>
+                <div class="form-group d-inline-block">
+                    <button type="submit" class="btn btn-xs btn-outline-secondary">Apply</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <em>
+                <small>Total: @Model.Teams.Count</small>
+            </em>
+        </div>
         <ul class="list-group">
-            @foreach(var team in Model)
+            @foreach(var team in Model.Teams)
             {
                 <li class="list-group-item">
                     <div class="row">

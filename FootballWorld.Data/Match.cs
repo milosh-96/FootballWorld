@@ -31,4 +31,15 @@ namespace FootballWorld.Data
         }
 
     }
+
+    public class CsvMatch
+    {
+        public string HomeTeam { get; set; } = null;
+        public int? HomeScore { get; set; }
+        public string AwayTeam { get; set; } = null;
+        public int? AwayScore { get; set; }
+
+        public DateTime? MatchStart { get; set; }
+        public bool? Finished { get; set; } = false;
+    }
 }

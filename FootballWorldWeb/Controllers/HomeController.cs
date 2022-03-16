@@ -28,6 +28,7 @@ namespace FootballWorldWeb.Controllers
             this.standingsCalculator = standingsCalculator;
         }
 
+       
         public IActionResult Index(IndexViewModel formData)
         {
             ViewData["Title"] = "Centre Circle";

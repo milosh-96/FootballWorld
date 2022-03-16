@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using FootballWorldWeb.Services;
 using FootballWorldWeb.Models;
 using Microsoft.AspNetCore.Identity;
+using Winton.AspNetCore.Seo;
 
 namespace FootballWorldWeb
 {
@@ -39,6 +40,7 @@ namespace FootballWorldWeb
             .AddEntityFrameworkStores<FootballDbContext>();
             services.AddControllersWithViews();
 
+            services.AddSeoWithDefaultRobots();
             services.AddScoped<UploadService>();
             services.AddScoped<StandingsCalculatorService>();
         }

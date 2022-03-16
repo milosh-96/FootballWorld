@@ -4,7 +4,7 @@
         <form enctype="multipart/form-data"
               asp-area="UserPanel"
               asp-controller="Seasons"
-              asp-action="Edit" 
+              asp-action="Edit"
               method="post">
             <input type="hidden" asp-for="@Model.Id" />
             <div class="form-group">
@@ -29,6 +29,16 @@
                 Save
             </button>
             <a asp-action="Index" class="btn btn-outline-secondary">Back</a>
+        </form>
+        <hr />
+        <form asp-area="UserPanel" onsubmit="return confirm('Are you sure?')"
+              asp-controller="Seasons"
+              asp-action="Delete"
+              asp-route-id="@Model.Id"
+              method="post">
+            <button type="submit" class="btn btn-danger">
+                Delete
+            </button>
         </form>
     </div>
 </div>

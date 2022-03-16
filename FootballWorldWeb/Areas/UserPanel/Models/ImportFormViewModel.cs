@@ -9,5 +9,6 @@ namespace FootballWorldWeb.Areas.UserPanel.Models
     public class ImportFormViewModel
     {
         public IFormFile UploadedFile { get; set; }
+        public int RelationshipId { get; set; }
     }
 }
